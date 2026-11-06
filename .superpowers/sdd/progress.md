@@ -27,5 +27,7 @@ This file tracks task completion for the go-web-api-framework project.
 - ✅ Task 12: DTOs and Integration Test - DONE (report: task-12-report.md)
 - ✅ Task 13: Validator Integration - DONE (report: task-13-report.md)
 - ✅ Task 14: Request Body Limit - DONE (report: task-14-report.md)
-- ✅ Task 15: Router Registration - DONE (report: task-15-report.md)
 - ✅ Task 16: Documentation - DONE (report: task-16-report.md)
+
+### In Progress
+- 🔄 Task 15: Router Registration - Implementing (a5bd8ca6)
