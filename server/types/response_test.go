@@ -1,7 +1,10 @@
 package types
 
 import (
+	"encoding/json"
+	"errors"
 	"net/http"
+	"net/http/httptest"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -86,7 +89,7 @@ func TestPaginatedResponse(t *testing.T) {
 	if w.Code != http.StatusOK {
 		t.Errorf("Status = %d; want %d", w.Code, http.StatusOK)
 	}
-	var resp PaginatedResponse[string]
+	var resp PaginatedResult[string]
 	if err := json.Unmarshal(w.Body.Bytes(), &resp); err != nil {
 		t.Fatalf("json.Unmarshal: %v", err)
 	}

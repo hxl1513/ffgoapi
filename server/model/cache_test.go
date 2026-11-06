@@ -41,8 +41,17 @@ func TestMemoryCache(t *testing.T) {
 func TestMemoryCacheTTL(t *testing.T) {
 	cache := NewMemoryCache()
 	cache.Set("key1", "value1", 100*time.Millisecond)
+
+	ttl, err := cache.TTL("key1")
+	if err != nil {
+		t.Fatalf("TTL() unexpected error: %v", err)
+	}
+	if ttl <= 0 {
+		t.Errorf("TTL() = %v, want positive duration", ttl)
+	}
+
 	time.Sleep(150 * time.Millisecond)
-	_, err := cache.Get("key1")
+	_, err = cache.Get("key1")
 	if err == nil {
 		t.Error("expected error after TTL expiry")
 	}
@@ -103,25 +112,6 @@ func TestMemoryCacheExistsMissing(t *testing.T) {
 	}
 	if exists {
 		t.Error("Exists() should return false for missing key")
-	}
-}
-
-func TestMemoryCacheTTL(t *testing.T) {
-	cache := NewMemoryCache()
-	cache.Set("key1", "value1", 100*time.Millisecond)
-
-	ttl, err := cache.TTL("key1")
-	if err != nil {
-		t.Fatalf("TTL() unexpected error: %v", err)
-	}
-	if ttl <= 0 {
-		t.Errorf("TTL() = %v, want positive duration", ttl)
-	}
-
-	time.Sleep(150 * time.Millisecond)
-	_, err = cache.Get("key1")
-	if err == nil {
-		t.Error("expected error after TTL expiry")
 	}
 }
 
