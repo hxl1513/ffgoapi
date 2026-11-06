@@ -7,15 +7,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type testingResponseWriter struct{}
+type testingResponseWriter struct {
+	header http.Header
+}
 
-func (w *testingResponseWriter) Header() http.Header { return http.Header{} }
+func newTestingResponseWriter() *testingResponseWriter {
+	return &testingResponseWriter{header: http.Header{}}
+}
+
+func (w *testingResponseWriter) Header() http.Header { return w.header }
 func (w *testingResponseWriter) Write([]byte) (int, error) { return 0, nil }
 func (w *testingResponseWriter) WriteHeader(int) {}
 
 func TestRequestID(t *testing.T) {
 	gin.SetMode(gin.TestMode)
-	w := &testingResponseWriter{}
+	w := newTestingResponseWriter()
 	req, _ := http.NewRequest("GET", "/test", nil)
 	c, _ := gin.CreateTestContext(w)
 	c.Request = req
