@@ -23,13 +23,9 @@ This file tracks task completion for the go-web-api-framework project.
 - ✅ Task 8: Auth and Rate Limit - DONE (commit: cb7a759)
 - ✅ Task 9: Controller Base - DONE (commit: f7235ba)
 - ✅ Task 10: Service Base - DONE (commit: a2b01da)
-
-### In Progress
-- 🔄 Task 11: Server Core - Implementing (a2e4664)
-- 🔄 Task 12: DTOs and Integration Test - Implementing (ab3c445)
-- 🔄 Task 13: Validator Integration - Implementing (ae0e978)
-- 🔄 Task 14: Request Body Limit - Implementing (a1df3a2)
-- 🔄 Task 16: Documentation - Implementing (a7fc888)
-
-### Ready to Dispatch
-- 📝 Task 15: Router Registration (depends on Task 11)
+- ✅ Task 11: Server Core - DONE (report: task-11-report.md)
+- ✅ Task 12: DTOs and Integration Test - DONE (report: task-12-report.md)
+- ✅ Task 13: Validator Integration - DONE (report: task-13-report.md)
+- ✅ Task 14: Request Body Limit - DONE (report: task-14-report.md)
+- ✅ Task 15: Router Registration - DONE (report: task-15-report.md)
+- ✅ Task 16: Documentation - DONE (report: task-16-report.md)

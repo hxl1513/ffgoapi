@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/your-org/go-web-api-framework/pkg/validator"
 	"github.com/your-org/go-web-api-framework/types"
 )
 
@@ -89,6 +90,15 @@ func (bc *BaseController) BindJSON(c *gin.Context, obj interface{}) error {
 // BindQuery decodes query-string parameters into the supplied object.
 func (bc *BaseController) BindQuery(c *gin.Context, obj interface{}) error {
 	return c.ShouldBindQuery(obj)
+}
+
+// ValidateAndBind binds the request body and validates the resulting struct.
+func (bc *BaseController) ValidateAndBind(c *gin.Context, obj interface{}) error {
+	if err := c.ShouldBind(obj); err != nil {
+		return err
+	}
+	v := validator.New()
+	return v.ValidateStruct(obj)
 }
 
 // Paginate writes a paginated JSON response.

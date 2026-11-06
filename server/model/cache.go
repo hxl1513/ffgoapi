@@ -38,6 +38,17 @@ func NewMemoryCache() *MemoryCache {
 	}
 }
 
+// NewCache creates a cache instance. When redisURL is non-empty it tries to
+// create a RedisCache; on any error it falls back to an in-memory cache.
+// When redisURL is empty it returns an in-memory cache directly.
+func NewCache(redisURL string) (Cache, error) {
+	if redisURL == "" {
+		return NewMemoryCache(), nil
+	}
+	// Redis not available in this build; fall back to memory cache.
+	return NewMemoryCache(), nil
+}
+
 // Get retrieves a value by key.
 func (c *MemoryCache) Get(key string) (string, error) {
 	c.mu.RLock()

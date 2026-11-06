@@ -15,6 +15,20 @@ type BaseModel struct {
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
 }
 
+// User is the example user model used in the examples package.
+type User struct {
+	BaseModel
+	Name     string `json:"name" gorm:"not null"`
+	Email    string `json:"email" gorm:"uniqueIndex;not null"`
+	Password string `json:"-" gorm:"not null"`
+	Role     int    `json:"role" gorm:"default:2"`
+}
+
+// TableName overrides the default pluralised table name for User.
+func (User) TableName() string {
+	return "users"
+}
+
 // PaginatedResult holds paginated query results with metadata
 type PaginatedResult[T any] struct {
 	Items      []T   `json:"items"`
