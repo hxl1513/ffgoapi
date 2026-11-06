@@ -52,7 +52,6 @@ func TestAuthMiddleware_ValidToken(t *testing.T) {
 		t.Errorf("Expected non-401, got 401")
 	}
 
-	// User context should be set
 	val, exists := c.Get("user_id")
 	if !exists || val != 1 {
 		t.Errorf("Expected user_id=1, got exists=%v val=%v", exists, val)
@@ -91,13 +90,11 @@ func TestAuthMiddleware_AllowedRoles(t *testing.T) {
 	cache := model.NewMemoryCache()
 	cfg := &AuthConfig{SessionSecret: "test-secret-key"}
 
-	// Generate token with role=1
-	token, err := crypto.GenerateToken(cfg.SessionSecret, 1, "testuser", 1, 0)
+	token, err := crypto.GenerateToken(cfg.SessionSecret, 1, "testuser", 1, time.Hour)
 	if err != nil {
 		t.Fatalf("GenerateToken() error: %v", err)
 	}
 
-	// AllowedRoles is 2,3 - role 1 should be rejected
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/test", nil)
 	req.Header.Set("Authorization", "Bearer "+token)
@@ -117,8 +114,7 @@ func TestAdminAuth(t *testing.T) {
 	cache := model.NewMemoryCache()
 	cfg := &AuthConfig{SessionSecret: "test-secret-key"}
 
-	// Admin role = 1
-	token, err := crypto.GenerateToken(cfg.SessionSecret, 1, "admin", 1, 0)
+	token, err := crypto.GenerateToken(cfg.SessionSecret, 1, "admin", 1, time.Hour)
 	if err != nil {
 		t.Fatalf("GenerateToken() error: %v", err)
 	}
@@ -142,8 +138,7 @@ func TestUserAuth(t *testing.T) {
 	cache := model.NewMemoryCache()
 	cfg := &AuthConfig{SessionSecret: "test-secret-key"}
 
-	// Regular user role = 2
-	token, err := crypto.GenerateToken(cfg.SessionSecret, 2, "user", 2, 0)
+	token, err := crypto.GenerateToken(cfg.SessionSecret, 2, "user", 2, time.Hour)
 	if err != nil {
 		t.Fatalf("GenerateToken() error: %v", err)
 	}

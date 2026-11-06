@@ -66,8 +66,15 @@ func AuthMiddleware(cfg *AuthConfig, cache model.Cache, allowedRoles ...int) gin
 			return
 		}
 
-		// 4. Check role if allowedRoles specified
-		if len(allowedRoles) > 0 {
+		// 4. Check role if non-zero allowedRoles specified
+		hasRestriction := false
+		for _, r := range allowedRoles {
+			if r != 0 {
+				hasRestriction = true
+				break
+			}
+		}
+		if hasRestriction {
 			allowed := false
 			for _, r := range allowedRoles {
 				if claims.Role == r {
