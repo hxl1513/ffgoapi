@@ -1,7 +1,5 @@
 package types
 
-import "fmt"
-
 const (
 	ErrCodeBadRequest     = 4001
 	ErrCodeUnauthorized   = 4002
@@ -21,14 +19,14 @@ type AppError struct {
 	Err     error  `json:"-"`
 }
 
-// NewAppError creates a new AppError.  When err is non-nil it is wrapped with
-// %w so that errors.Is / errors.As work correctly.
+// NewAppError creates a new AppError. When err is non-nil it is stored
+// directly so that errors.Is and pointer-equality checks both succeed.
 func NewAppError(code int, message string, err error) *AppError {
-	a := &AppError{Code: code, Message: message}
-	if err != nil {
-		a.Err = fmt.Errorf("%s: %w", message, err)
+	return &AppError{
+		Code:    code,
+		Message: message,
+		Err:     err,
 	}
-	return a
 }
 
 // Error satisfies the error interface.
