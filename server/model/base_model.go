@@ -31,8 +31,20 @@ func Paginate[T any](items []T, total int64, page, perPage int) PaginatedResult[
 		totalPages = 1
 	}
 
+	// Calculate slice bounds
+	offset := (page - 1) * perPage
+	end := offset + perPage
+	if end > len(items) {
+		end = len(items)
+	}
+	if offset > len(items) {
+		offset = len(items)
+	}
+
+	pagedItems := items[offset:end]
+
 	return PaginatedResult[T]{
-		Items:      items,
+		Items:      pagedItems,
 		Total:      total,
 		Page:       page,
 		PerPage:    perPage,

@@ -6,9 +6,9 @@ import (
 
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"gorm.io/driver/sqlite"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
+	sqlite "github.com/glebarez/sqlite"
 )
 
 // DatabaseConfig holds the database connection configuration
