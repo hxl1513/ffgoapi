@@ -1,0 +1,245 @@
+diff --git a/server/config/config.go b/server/config/config.go
+new file mode 100644
+index 0000000..2b93be8
+--- /dev/null
++++ b/server/config/config.go
+@@ -0,0 +1,107 @@
++package config
++
++import (
++	"fmt"
++	"time"
++)
++
++type Config struct {
++	Server      ServerConfig
++	Database    DatabaseConfig
++	Redis       RedisConfig
++	Auth        AuthConfig
++	RateLimit   RateLimitConfig
++	Logger      LoggerConfig
++}
++
++type ServerConfig struct {
++	Port         int           `json:"port"`
++	Mode         string        `json:"mode"`
++	ReadTimeout  time.Duration `json:"read_timeout"`
++	WriteTimeout time.Duration `json:"write_timeout"`
++}
++
++type DatabaseConfig struct {
++	Type         string `json:"type"`
++	Host         string `json:"host"`
++	Port         int    `json:"port"`
++	User         string `json:"user"`
++	Password     string `json:"password"`
++	DBName       string `json:"dbname"`
++	MaxIdleConns int    `json:"max_idle_conns"`
++	MaxOpenConns int    `json:"max_open_conns"`
++	LogLevel     string `json:"log_level"`
++}
++
++type RedisConfig struct {
++	Enabled  bool   `json:"enabled"`
++	URL      string `json:"url"`
++	PoolSize int    `json:"pool_size"`
++}
++
++type AuthConfig struct {
++	SessionSecret string `json:"session_secret"`
++	TokenExpiry   int    `json:"token_expiry"`
++}
++
++type RateLimitConfig struct {
++	Enabled         bool `json:"enabled"`
++	DefaultMax      int  `json:"default_max"`
++	DefaultDuration int  `json:"default_duration"`
++}
++
++type LoggerConfig struct {
++	Level string `json:"level"`
++	Dir   string `json:"dir"`
++}
++
++func LoadFromEnv() (*Config, error) {
++	cfg := &Config{}
++
++	cfg.Server.Port = getEnvAsInt("PORT", 3000)
++	cfg.Server.Mode = getEnv("GIN_MODE", "release")
++	cfg.Server.ReadTimeout = getEnvAsDuration("READ_TIMEOUT", 10*time.Second)
++	cfg.Server.WriteTimeout = getEnvAsDuration("WRITE_TIMEOUT", 10*time.Second)
++
++	cfg.Database.Type = getEnv("DB_TYPE", "sqlite")
++	cfg.Database.Host = getEnv("DB_HOST", "localhost")
++	cfg.Database.Port = getEnvAsInt("DB_PORT", 3306)
++	cfg.Database.User = getEnv("DB_USER", "root")
++	cfg.Database.Password = getEnv("DB_PASSWORD", "")
++	cfg.Database.DBName = getEnv("DB_NAME", "app.db")
++	cfg.Database.MaxIdleConns = getEnvAsInt("DB_MAX_IDLE_CONNS", 10)
++	cfg.Database.MaxOpenConns = getEnvAsInt("DB_MAX_OPEN_CONNS", 100)
++	cfg.Database.LogLevel = getEnv("DB_LOG_LEVEL", "error")
++
++	cfg.Redis.Enabled = getEnvAsBool("REDIS_ENABLED", false)
++	cfg.Redis.URL = getEnv("REDIS_URL", "")
++	cfg.Redis.PoolSize = getEnvAsInt("REDIS_POOL_SIZE", 10)
++
++	cfg.Auth.SessionSecret = getEnv("SESSION_SECRET", "")
++	cfg.Auth.TokenExpiry = getEnvAsInt("TOKEN_EXPIRY", 86400)
++
++	cfg.RateLimit.Enabled = getEnvAsBool("RATE_LIMIT_ENABLED", true)
++	cfg.RateLimit.DefaultMax = getEnvAsInt("RATE_LIMIT_DEFAULT_MAX", 100)
++	cfg.RateLimit.DefaultDuration = getEnvAsInt("RATE_LIMIT_DEFAULT_DURATION", 60)
++
++	cfg.Logger.Level = getEnv("LOG_LEVEL", "info")
++	cfg.Logger.Dir = getEnv("LOG_DIR", "./logs")
++
++	return cfg, nil
++}
++
++type ValidationError struct {
++	Field   string
++	Message string
++}
++
++func (e *ValidationError) Error() string {
++	return fmt.Sprintf("validation error on field %s: %s", e.Field, e.Message)
++}
++
++func ValidateConfig(cfg *Config) error {
++	if cfg.Auth.SessionSecret == "" {
++		return &ValidationError{Field: "auth.session_secret", Message: "session secret is required"}
++	}
++	return nil
++}
+diff --git a/server/config/config_test.go b/server/config/config_test.go
+new file mode 100644
+index 0000000..d73f302
+--- /dev/null
++++ b/server/config/config_test.go
+@@ -0,0 +1,73 @@
++package config
++
++import (
++	"os"
++	"testing"
++	"time"
++)
++
++func TestLoadFromEnv(t *testing.T) {
++	os.Clearenv()
++	os.Setenv("PORT", "8080")
++	os.Setenv("GIN_MODE", "test")
++	os.Setenv("DB_TYPE", "sqlite")
++	os.Setenv("DB_NAME", "test.db")
++	os.Setenv("SESSION_SECRET", "test-secret")
++
++	cfg, err := LoadFromEnv()
++	if err != nil { t.Fatalf("LoadFromEnv() error = %v", err) }
++
++	if cfg.Server.Port != 8080 { t.Errorf("Port = %d, want 8080", cfg.Server.Port) }
++	if cfg.Server.Mode != "test" { t.Errorf("Mode = %s, want test", cfg.Server.Mode) }
++	if cfg.Database.Type != "sqlite" { t.Errorf("Database.Type = %s, want sqlite", cfg.Database.Type) }
++	if cfg.Database.DBName != "test.db" { t.Errorf("Database.DBName = %s, want test.db", cfg.Database.DBName) }
++	if cfg.Auth.SessionSecret != "test-secret" { t.Errorf("Auth.SessionSecret = %s, want test-secret", cfg.Auth.SessionSecret) }
++}
++
++func TestLoadFromEnvDefaults(t *testing.T) {
++	os.Clearenv()
++	os.Setenv("SESSION_SECRET", "test-secret")
++
++	cfg, err := LoadFromEnv()
++	if err != nil { t.Fatalf("LoadFromEnv() error = %v", err) }
++
++	if cfg.Server.Port != 3000 { t.Errorf("Port = %d, want 3000 (default)", cfg.Server.Port) }
++	if cfg.Server.Mode != "release" { t.Errorf("Mode = %s, want release (default)", cfg.Server.Mode) }
++	if cfg.Server.ReadTimeout != 10*time.Second { t.Errorf("ReadTimeout = %v, want 10s", cfg.Server.ReadTimeout) }
++	if cfg.Database.Type != "sqlite" { t.Errorf("Database.Type = %s, want sqlite", cfg.Database.Type) }
++	if cfg.RateLimit.DefaultMax != 100 { t.Errorf("RateLimit.DefaultMax = %d, want 100", cfg.RateLimit.DefaultMax) }
++}
++
++func TestValidateConfig(t *testing.T) {
++	tests := []struct {
++		name    string
++		config  *Config
++		wantErr bool
++	}{
++		{
++			name: "valid config",
++			config: &Config{
++				Server:   ServerConfig{Port: 3000},
++				Database: DatabaseConfig{Type: "sqlite", DBName: "test.db"},
++				Auth:     AuthConfig{SessionSecret: "secret"},
++			},
++			wantErr: false,
++		},
++		{
++			name: "missing session secret",
++			config: &Config{
++				Server:   ServerConfig{Port: 3000},
++				Database: DatabaseConfig{Type: "sqlite", DBName: "test.db"},
++				Auth:     AuthConfig{SessionSecret: ""},
++			},
++			wantErr: true,
++		},
++	}
++
++	for _, tt := range tests {
++		t.Run(tt.name, func(t *testing.T) {
++			err := ValidateConfig(tt.config)
++			if (err != nil) != tt.wantErr { t.Errorf("ValidateConfig() error = %v, wantErr %v", err, tt.wantErr) }
++		})
++	}
++}
+diff --git a/server/config/env.go b/server/config/env.go
+new file mode 100644
+index 0000000..f4cf6c1
+--- /dev/null
++++ b/server/config/env.go
+@@ -0,0 +1,47 @@
++package config
++
++import (
++	"os"
++	"strconv"
++	"time"
++)
++
++func getEnv(key, defaultValue string) string {
++	if value, exists := os.LookupEnv(key); exists {
++		return value
++	}
++	return defaultValue
++}
++
++func getEnvAsInt(key string, defaultValue int) int {
++	if value, exists := os.LookupEnv(key); exists {
++		i, err := strconv.Atoi(value)
++		if err != nil {
++			return defaultValue
++		}
++		return i
++	}
++	return defaultValue
++}
++
++func getEnvAsBool(key string, defaultValue bool) bool {
++	if value, exists := os.LookupEnv(key); exists {
++		b, err := strconv.ParseBool(value)
++		if err != nil {
++			return defaultValue
++		}
++		return b
++	}
++	return defaultValue
++}
++
++func getEnvAsDuration(key string, defaultValue time.Duration) time.Duration {
++	if value, exists := os.LookupEnv(key); exists {
++		d, err := time.ParseDuration(value)
++		if err != nil {
++			return defaultValue
++		}
++		return d
++	}
++	return defaultValue
++}
