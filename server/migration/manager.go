@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database"
 	"github.com/golang-migrate/migrate/v4/database/mysql"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
@@ -54,15 +55,23 @@ func NewManager(db *model.DB, dbCfg *config.DatabaseConfig, cfg *config.Migratio
 	_ = dsn // DSN built for reference; actual connection comes from db.Write
 
 	// 创建数据库驱动
-	var driver migrate.Driver
+	var driver database.Driver
 	switch dbType {
 	case "mysql":
-		driver, err = mysql.New(db.Write.DB())
+		sqlDB, dbErr := db.Write.DB()
+		if dbErr != nil {
+			return nil, fmt.Errorf("failed to get MySQL *sql.DB: %w", dbErr)
+		}
+		driver, err = mysql.WithInstance(sqlDB, &mysql.Config{})
 		if err != nil {
 			return nil, fmt.Errorf("failed to create MySQL driver: %w", err)
 		}
 	case "postgres":
-		driver, err = postgres.New(db.Write.DB())
+		sqlDB, dbErr := db.Write.DB()
+		if dbErr != nil {
+			return nil, fmt.Errorf("failed to get PostgreSQL *sql.DB: %w", dbErr)
+		}
+		driver, err = postgres.WithInstance(sqlDB, &postgres.Config{})
 		if err != nil {
 			return nil, fmt.Errorf("failed to create PostgreSQL driver: %w", err)
 		}
@@ -152,7 +161,7 @@ func (m *MigrationManager) Down() error {
 
 // DownTo 回滚到指定版本
 func (m *MigrationManager) DownTo(version uint64) error {
-	err := m.mgr.Migrate(version)
+	err := m.mgr.Migrate(uint(version))
 	if err == migrate.ErrNoChange {
 		return nil
 	}
