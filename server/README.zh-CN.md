@@ -352,6 +352,39 @@ go vet ./...
 
 欢迎提交 Issue 和 Pull Request！
 
-## 📄 许可证
+## 数据库迁移
+
+框架基于 [golang-migrate](https://github.com/golang-migrate/migrate) 提供数据库迁移功能，支持 MySQL 8.0 和 PostgreSQL 16。
+
+### 快速开始
+
+在 `.env` 文件中添加：
+
+```env
+MIGRATION_ENABLED=true
+MIGRATION_DIR=./migrations
+```
+
+创建迁移文件：
+
+```sql
+-- migrations/20240101120000_create_users.up.sql
+CREATE TABLE users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### 执行迁移
+
+```bash
+go run cmd/migrate/main.go up
+```
+
+详细文档：[MIGRATION.md](docs/MIGRATION.md)
+
+## 许可证
 
 MIT License
