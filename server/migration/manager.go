@@ -20,6 +20,15 @@ type MigrationManager struct {
 }
 
 // NewManager 创建迁移管理器
+//
+// 参数:
+//   - db: GORM 数据库连接（已建立连接，实际连接来自此参数）
+//   - dbCfg: 数据库配置（用于 DSN 构建和数据库类型推断）
+//   - cfg: 迁移配置（迁移文件目录、迁移表名、自动迁移行为等）
+//
+// 返回:
+//   - *MigrationManager: 迁移管理器实例
+//   - error: 参数为空或创建迁移实例失败时返回错误
 func NewManager(db *model.DB, dbCfg *config.DatabaseConfig, cfg *config.MigrationConfig) (*MigrationManager, error) {
 	if db == nil {
 		return nil, fmt.Errorf("database connection is nil")
@@ -35,11 +44,13 @@ func NewManager(db *model.DB, dbCfg *config.DatabaseConfig, cfg *config.Migratio
 		dbType = "sqlite"
 	}
 
-	// 构建 DSN
+	// 构建 DSN（用于诊断日志或未来扩展）
+	// 注意：实际的数据库连接来自 db 参数，DSN 仅用于参考
 	dsn, err := buildDSN(dbCfg)
 	if err != nil {
 		return nil, fmt.Errorf("failed to build DSN: %w", err)
 	}
+	// TODO: 在详细日志中记录 DSN（脱敏后）用于调试
 	_ = dsn // DSN built for reference; actual connection comes from db.Write
 
 	// 创建数据库驱动
@@ -98,6 +109,22 @@ func buildDSN(dbCfg *config.DatabaseConfig) (string, error) {
 		return "", fmt.Errorf("unsupported database type: %s", dbCfg.Type)
 	}
 }
+
+// TestMigrationManager_DSNBuilder 测试 DSN 构建器（注释掉，需要网络环境编译）
+// func TestMigrationManager_DSNBuilder(t *testing.T) {
+// 	mysqlCfg := &config.DatabaseConfig{
+// 		Type:     "mysql",
+// 		Host:     "localhost",
+// 		Port:     3306,
+// 		User:     "root",
+// 		Password: "pass",
+// 		DBName:   "testdb",
+// 	}
+// 	dsn, err := buildDSN(mysqlCfg)
+// 	assert.NoError(t, err)
+// 	assert.Contains(t, dsn, "mysql://")
+// 	assert.Contains(t, dsn, "testdb")
+// }
 
 // Up 执行所有待处理的迁移
 func (m *MigrationManager) Up() error {
