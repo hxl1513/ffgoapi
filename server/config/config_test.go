@@ -71,3 +71,51 @@ func TestValidateConfig(t *testing.T) {
 		})
 	}
 }
+
+func TestMigrationConfigFromEnv(t *testing.T) {
+	os.Setenv("MIGRATION_ENABLED", "true")
+	os.Setenv("MIGRATION_DIR", "./migrations")
+	os.Setenv("MIGRATION_AUTO_APPLY", "true")
+	os.Setenv("MIGRATION_TABLE_NAME", "schema_migrations")
+	defer func() {
+		os.Unsetenv("MIGRATION_ENABLED")
+		os.Unsetenv("MIGRATION_DIR")
+		os.Unsetenv("MIGRATION_AUTO_APPLY")
+		os.Unsetenv("MIGRATION_TABLE_NAME")
+	}()
+
+	cfg, err := LoadFromEnv()
+	if err != nil {
+		t.Fatalf("LoadFromEnv() error = %v", err)
+	}
+
+	if !cfg.Migration.Enabled {
+		t.Errorf("Expected Migration.Enabled = true, got false")
+	}
+	if cfg.Migration.Dir != "./migrations" {
+		t.Errorf("Expected Migration.Dir = './migrations', got %s", cfg.Migration.Dir)
+	}
+	if !cfg.Migration.AutoApply {
+		t.Errorf("Expected Migration.AutoApply = true, got false")
+	}
+	if cfg.Migration.TableName != "schema_migrations" {
+		t.Errorf("Expected Migration.TableName = 'schema_migrations', got %s", cfg.Migration.TableName)
+	}
+}
+
+func TestMigrationConfigDefaults(t *testing.T) {
+	cfg, _ := LoadFromEnv()
+
+	if cfg.Migration.Enabled {
+		t.Errorf("Expected default Migration.Enabled = false, got true")
+	}
+	if cfg.Migration.Dir != "./migrations" {
+		t.Errorf("Expected default Migration.Dir = './migrations', got %s", cfg.Migration.Dir)
+	}
+	if cfg.Migration.AutoApply {
+		t.Errorf("Expected default Migration.AutoApply = false, got true")
+	}
+	if cfg.Migration.TableName != "schema_migrations" {
+		t.Errorf("Expected default Migration.TableName = 'schema_migrations', got %s", cfg.Migration.TableName)
+	}
+}

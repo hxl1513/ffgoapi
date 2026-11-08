@@ -12,6 +12,7 @@ type Config struct {
 	Auth        AuthConfig
 	RateLimit   RateLimitConfig
 	Logger      LoggerConfig
+	Migration   MigrationConfig
 }
 
 type ServerConfig struct {
@@ -55,6 +56,14 @@ type LoggerConfig struct {
 	Dir   string `json:"dir"`
 }
 
+// MigrationConfig 数据库迁移配置
+type MigrationConfig struct {
+	Enabled   bool   `json:"enabled"`    // 是否启用迁移
+	Dir       string `json:"dir"`        // 迁移文件目录
+	AutoApply bool   `json:"auto_apply"` // 启动时自动执行
+	TableName string `json:"table_name"` // 版本追踪表名
+}
+
 func LoadFromEnv() (*Config, error) {
 	cfg := &Config{}
 
@@ -86,6 +95,11 @@ func LoadFromEnv() (*Config, error) {
 
 	cfg.Logger.Level = getEnv("LOG_LEVEL", "info")
 	cfg.Logger.Dir = getEnv("LOG_DIR", "./logs")
+
+	cfg.Migration.Enabled = getEnvAsBool("MIGRATION_ENABLED", false)
+	cfg.Migration.Dir = getEnv("MIGRATION_DIR", "./migrations")
+	cfg.Migration.AutoApply = getEnvAsBool("MIGRATION_AUTO_APPLY", false)
+	cfg.Migration.TableName = getEnv("MIGRATION_TABLE_NAME", "schema_migrations")
 
 	return cfg, nil
 }
