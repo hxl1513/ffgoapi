@@ -27,8 +27,8 @@ This file tracks task completion for the go-web-api-framework project.
 - ✅ Task Migrate-2: MigrationConfig configuration - DONE (commit: 38d855a)
 - ⚠️ Task Migrate-3: MigrationManager core - DONE (commit: 9d0dc54, blocked: network dependencies)
 - ✅ Task Migrate-4: DSN builder improvements - DONE (commit: 3e23f8e)
-- 🔄 Task Migrate-5: Example migration files - Implementing (pending)
-- 📝 Task Migrate-6: Server integration - Pending
-- 📝 Task Migrate-7: CLI migration tool - Pending
-- 📝 Task Migrate-8: Documentation - Pending
-- 📝 Task Migrate-9: Integration tests - Pending
+- ✅ Task Migrate-5: Example migration files - DONE (commit: dc4aa99)
+- 📝 Task Migrate-6: Server integration - Pending (requires compilation)
+- 📝 Task Migrate-7: CLI migration tool - Pending (requires compilation)
+- 📝 Task Migrate-8: Documentation - Pending (can proceed)
+- ⚠️ Task Migrate-9: Integration tests - BLOCKED (requires network + real database)
