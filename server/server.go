@@ -8,18 +8,20 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/your-org/go-web-api-framework/common"
 	"github.com/your-org/go-web-api-framework/config"
+	"github.com/your-org/go-web-api-framework/migration"
 	"github.com/your-org/go-web-api-framework/middleware"
 	"github.com/your-org/go-web-api-framework/model"
 )
 
 // Server holds the HTTP server dependencies.
 type Server struct {
-	engine *gin.Engine
-	config *config.Config
-	logger *common.Logger
-	db     *model.DB
-	cache  model.Cache
-	httpSrv *http.Server
+	engine   *gin.Engine
+	config   *config.Config
+	logger   *common.Logger
+	db       *model.DB
+	cache    model.Cache
+	migrator *migration.MigrationManager  // 可选：迁移管理器
+	httpSrv  *http.Server
 }
 
 // NewServer constructs and configures a new Server.
@@ -65,6 +67,26 @@ func NewServer(cfg *config.Config) (*Server, error) {
 
 	// Register default routes (health check).
 	srv.setupDefaultRoutes()
+
+	// 初始化迁移管理器（可选功能）
+	if cfg.Migration.Enabled {
+		mgr, err := migration.NewManager(srv.db, &cfg.Database, &cfg.Migration)
+		if err != nil {
+			// 如果迁移功能失败，记录警告但不阻止服务器启动
+			srv.logger.Warn("Failed to create migration manager: %v", err)
+		} else {
+			srv.migrator = mgr
+
+			// 自动执行迁移（如果配置了 AutoApply）
+			if cfg.Migration.AutoApply {
+				if err := mgr.Up(); err != nil && err != migration.ErrNoChange {
+					srv.logger.Warn("Auto migration failed: %v", err)
+				} else {
+					srv.logger.Info("Auto migration completed successfully")
+				}
+			}
+		}
+	}
 
 	return srv, nil
 }
@@ -126,7 +148,20 @@ func (s *Server) Shutdown(ctx context.Context) error {
 		}
 	}
 	if s.db != nil {
-		return s.db.Close()
+		if err := s.db.Close(); err != nil {
+			return err
+		}
+	}
+	// 关闭迁移管理器
+	if s.migrator != nil {
+		if err := s.migrator.Close(); err != nil {
+			s.logger.Warn("Failed to close migration manager: %v", err)
+		}
 	}
 	return nil
+}
+
+// GetMigrator returns the migration manager (if initialized).
+func (s *Server) GetMigrator() *migration.MigrationManager {
+	return s.migrator
 }
