@@ -1,4 +1,4 @@
-module github.com/your-org/go-web-api-framework
+module github.com/hxl1513/ffgoapi
 
 go 1.22
 

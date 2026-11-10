@@ -229,7 +229,7 @@ package migration
 
 import (
     "testing"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 func TestNewManager_NilDB(t *testing.T) {
@@ -266,7 +266,7 @@ Expected: FAIL (函数未定义)
 ```go
 package migration
 
-import "github.com/your-org/go-web-api-framework/config"
+import "github.com/hxl1513/ffgoapi/config"
 
 // Config 迁移配置别名
 type Config = config.MigrationConfig
@@ -286,8 +286,8 @@ import (
     "github.com/golang-migrate/migrate/v4/database/mysql"
     "github.com/golang-migrate/migrate/v4/database/postgres"
     _ "github.com/golang-migrate/migrate/v4/source/file"
-    "github.com/your-org/go-web-api-framework/config"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/config"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 // MigrationManager 封装 golang-migrate
@@ -697,9 +697,9 @@ import (
     "fmt"
     "os"
 
-    "github.com/your-org/go-web-api-framework/config"
-    "github.com/your-org/go-web-api-framework/migration"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/config"
+    "github.com/hxl1513/ffgoapi/migration"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 func main() {
@@ -964,8 +964,8 @@ package migration
 
 import (
     "testing"
-    "github.com/your-org/go-web-api-framework/config"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/config"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 func TestMySQLMigration(t *testing.T) {

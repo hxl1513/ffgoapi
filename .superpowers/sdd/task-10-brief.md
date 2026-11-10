@@ -105,7 +105,7 @@ func (e *testingError) Error() string { return e.msg }
 ## Global Constraints
 
 - Go 1.25+
-- Import model: `github.com/your-org/go-web-api-framework/model`
+- Import model: `github.com/hxl1513/ffgoapi/model`
 
 ## Test Verification
 

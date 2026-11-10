@@ -14,7 +14,7 @@ DONE
 
 ## Notes
 
-- All module paths in code examples use the module name declared in `server/go.mod`: `github.com/your-org/go-web-api-framework`.
+- All module paths in code examples use the module name declared in `server/go.mod`: `github.com/hxl1513/ffgoapi`.
 - The quick-start code example mirrors the `config.LoadFromEnv()` / `server.NewServer(cfg)` / `srv.RegisterRoutes()` / `srv.Start()` flow specified in the task brief.
 - The README project-structure table was derived by scanning the actual `server/` directory tree.
 - The GETTING_STARTED.md configuration reference table was derived from the actual `Config` struct fields in `server/config/config.go`.

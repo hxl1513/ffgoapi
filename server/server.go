@@ -6,11 +6,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/common"
-	"github.com/your-org/go-web-api-framework/config"
-	"github.com/your-org/go-web-api-framework/migration"
-	"github.com/your-org/go-web-api-framework/middleware"
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/common"
+	"github.com/hxl1513/ffgoapi/config"
+	"github.com/hxl1513/ffgoapi/migration"
+	"github.com/hxl1513/ffgoapi/middleware"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 // Server holds the HTTP server dependencies.
@@ -79,7 +79,7 @@ func NewServer(cfg *config.Config) (*Server, error) {
 
 			// 自动执行迁移（如果配置了 AutoApply）
 			if cfg.Migration.AutoApply {
-				if err := mgr.Up(); err != nil && err != migration.ErrNoChange {
+				if err := mgr.Up(); err != nil {
 					srv.logger.Warn("Auto migration failed: %v", err)
 				} else {
 					srv.logger.Info("Auto migration completed successfully")

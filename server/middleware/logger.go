@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/common"
+	"github.com/hxl1513/ffgoapi/common"
 )
 
 // Logger returns a gin.HandlerFunc that logs request details using the provided logger.

@@ -3,7 +3,7 @@ package migration
 import (
 	"testing"
 
-	"github.com/your-org/go-web-api-framework/config"
+	"github.com/hxl1513/ffgoapi/config"
 )
 
 // TestNewManager_NilDB 测试 nil DB 参数

@@ -23,7 +23,7 @@
 === RUN   TestMigrationConfigDefaults
 --- PASS: TestMigrationConfigDefaults (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/config	1.495s
+ok  	github.com/hxl1513/ffgoapi/config	1.495s
 ```
 
 所有 5 个测试均通过（3 个原有 + 2 个新增）。

@@ -169,9 +169,9 @@ package main
 import (
     "log"
 
-    "github.com/your-org/go-web-api-framework/config"
-    "github.com/your-org/go-web-api-framework/model"
-    "github.com/your-org/go-web-api-framework/migration"
+    "github.com/hxl1513/ffgoapi/config"
+    "github.com/hxl1513/ffgoapi/model"
+    "github.com/hxl1513/ffgoapi/migration"
 )
 
 func main() {

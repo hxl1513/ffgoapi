@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/model"
-	"github.com/your-org/go-web-api-framework/pkg/crypto"
+	"github.com/hxl1513/ffgoapi/model"
+	"github.com/hxl1513/ffgoapi/pkg/crypto"
 )
 
 func TestAuthMiddleware_NoToken(t *testing.T) {

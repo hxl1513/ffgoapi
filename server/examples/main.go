@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/your-org/go-web-api-framework/config"
+	"github.com/hxl1513/ffgoapi/config"
 )
 
 // ExampleMain demonstrates the wiring pattern for a production application.

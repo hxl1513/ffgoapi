@@ -33,7 +33,7 @@ Implemented `BaseService` in `server/service/base_service.go` with full database
 === RUN   TestBaseService_Transaction
 --- PASS: TestBaseService_Transaction (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/service	2.019s
+ok  	github.com/hxl1513/ffgoapi/service	2.019s
 ```
 
 All tests pass on Go 1.25.0.

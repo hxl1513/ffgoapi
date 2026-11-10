@@ -9,7 +9,7 @@
 - `C:\workspace\go_project\bhz\server\pkg\validator\validate_test.go` — Unit tests covering all public methods
 
 ### Modified
-- `C:\workspace\go_project\bhz\server\controller\base_controller.go` — Added `ValidateAndBind` method and import for `github.com/your-org/go-web-api-framework/pkg/validator`
+- `C:\workspace\go_project\bhz\server\controller\base_controller.go` — Added `ValidateAndBind` method and import for `github.com/hxl1513/ffgoapi/pkg/validator`
 - `C:\workspace\go_project\bhz\server\go.mod` — Promoted `github.com/go-playground/validator/v10` from `// indirect` to direct dependency
 
 ---
@@ -34,7 +34,7 @@
 === RUN   TestValidateField
 --- PASS: TestValidateField (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/pkg/validator	2.869s
+ok  	github.com/hxl1513/ffgoapi/pkg/validator	2.869s
 ```
 
 ### `./controller` — 14/14 PASS
@@ -69,7 +69,7 @@ ok  	github.com/your-org/go-web-api-framework/pkg/validator	2.869s
 === RUN   TestBaseController_NoContent
 --- PASS: TestBaseController_NoContent (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/controller	3.102s
+ok  	github.com/hxl1513/ffgoapi/controller	3.102s
 ```
 
 ---
@@ -84,7 +84,7 @@ ok  	github.com/your-org/go-web-api-framework/controller	3.102s
 - `ValidateField(field interface{}, tag string) error` — validates a single value via `validate.Var(field, tag)`
 
 ### `server/controller/base_controller.go`
-- Added import: `"github.com/your-org/go-web-api-framework/pkg/validator"`
+- Added import: `"github.com/hxl1513/ffgoapi/pkg/validator"`
 - Added method `ValidateAndBind(c *gin.Context, obj interface{}) error` — calls `c.ShouldBind(obj)` first (returns bind error immediately), then validates the bound struct via `validator.New().ValidateStruct(obj)`
 
 ### Test Coverage

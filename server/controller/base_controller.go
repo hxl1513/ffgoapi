@@ -6,8 +6,8 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/pkg/validator"
-	"github.com/your-org/go-web-api-framework/types"
+	"github.com/hxl1513/ffgoapi/pkg/validator"
+	"github.com/hxl1513/ffgoapi/types"
 )
 
 // BaseController provides common HTTP handling utilities.

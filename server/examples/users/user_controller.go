@@ -2,8 +2,8 @@ package users
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/controller"
-	"github.com/your-org/go-web-api-framework/dto"
+	"github.com/hxl1513/ffgoapi/controller"
+	"github.com/hxl1513/ffgoapi/dto"
 )
 
 // UserController handles HTTP requests for user resources.

@@ -14,11 +14,11 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /health                   --> github.com/your-org/go-web-api-framework.(*Server).setupDefaultRoutes.func1 (5 handlers)
+[GIN-debug] GET    /health                   --> github.com/hxl1513/ffgoapi.(*Server).setupDefaultRoutes.func1 (5 handlers)
 [INFO]2026-11-06T13:22:15+08:00 | [GIN] %s | %d | %v | %s | %s %s    GET /api/test
 --- PASS: TestRegisterRoutes (0.01s)
 PASS
-ok  	github.com/your-org/go-web-api-framework	2.545s
+ok  	github.com/hxl1513/ffgoapi	2.545s
 ```
 
 ## Summary

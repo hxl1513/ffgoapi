@@ -13,14 +13,14 @@ You are reviewing Task 1 of the go-web-api-framework implementation plan. This i
 ## Global Constraints (binding requirements)
 
 - Go version: 1.25+
-- Module name: `github.com/your-org/go-web-api-framework`
+- Module name: `github.com/hxl1513/ffgoapi`
 - Package naming: lowercase, single word where possible
 
 ## Your Review Checklist
 
 ### Spec Compliance
 
-1. ✅ Module name is exactly `github.com/your-org/go-web-api-framework`
+1. ✅ Module name is exactly `github.com/hxl1513/ffgoapi`
 2. ✅ Go version is `go 1.25`
 3. ✅ All 11 required dependencies present (Gin, Validator, Redis, MySQL, Postgres, SQLite drivers, GORM, Crypto, UUID, pkg/errors)
 4. ✅ Commit message matches required format with Co-Authored-By line

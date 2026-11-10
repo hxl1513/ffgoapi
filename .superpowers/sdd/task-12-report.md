@@ -57,7 +57,7 @@ $ cd server && go test ./examples -v -count=1
 === RUN   TestUserController_GetUser_NotFound
 --- PASS: TestUserController_GetUser_NotFound (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/examples	0.469s
+ok  	github.com/hxl1513/ffgoapi/examples	0.469s
 ```
 
 **8/8 tests pass.** Full module test run (`go test ./...`) also passes with zero failures.

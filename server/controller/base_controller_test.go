@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/types"
+	"github.com/hxl1513/ffgoapi/types"
 )
 
 func TestBaseController_Success(t *testing.T) {

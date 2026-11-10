@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 func TestBaseService_DB(t *testing.T) {

@@ -12,7 +12,7 @@ Initialize the Go module for the server framework located at `C:\workspace\go_pr
 
 ## Requirements (verbatim from plan)
 
-1. Create `server/go.mod` with module name: `github.com/your-org/go-web-api-framework`
+1. Create `server/go.mod` with module name: `github.com/hxl1513/ffgoapi`
 2. Add Go version: `go 1.25`
 3. Add required dependencies (Gin, GORM, Redis, Validator, etc.)
 4. Run `go mod tidy` to download dependencies

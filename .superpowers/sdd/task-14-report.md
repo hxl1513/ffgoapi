@@ -35,13 +35,13 @@
 === RUN   TestRequestBodyLimit_LargeBody
 --- PASS: TestRequestBodyLimit_LargeBody (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/middleware	1.228s
+ok  	github.com/hxl1513/ffgoapi/middleware	1.228s
 ```
 
 All 15 middleware tests (6 existing + 5 new) pass. Full suite:
 
 ```
-PASS  ok  github.com/your-org/go-web-api-framework/middleware  (cached)
+PASS  ok  github.com/hxl1513/ffgoapi/middleware  (cached)
 ```
 
 ## Test Design Note

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 // FromUser converts a model.User (domain entity) into a UserResponse DTO.

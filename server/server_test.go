@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/your-org/go-web-api-framework/config"
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/config"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 func TestNewServer(t *testing.T) {

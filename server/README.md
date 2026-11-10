@@ -21,8 +21,8 @@ package main
 import (
 	"log"
 
-	"github.com/your-org/go-web-api-framework/config"
-	"github.com/your-org/go-web-api-framework/server"
+	"github.com/hxl1513/ffgoapi/config"
+	"github.com/hxl1513/ffgoapi/server"
 )
 
 func main() {

@@ -8,8 +8,8 @@ import (
 	"github.com/golang-migrate/migrate/v4/database/mysql"
 	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"github.com/your-org/go-web-api-framework/config"
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/config"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 // MigrationManager 封装 golang-migrate

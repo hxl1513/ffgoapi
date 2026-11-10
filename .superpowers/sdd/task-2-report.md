@@ -23,7 +23,7 @@
     --- PASS: TestValidateConfig/valid_config (0.00s)
     --- PASS: TestValidateConfig/missing_session_secret (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/config	0.509s
+ok  	github.com/hxl1513/ffgoapi/config	0.509s
 ```
 
 All 3 tests (5 subtests) PASS.

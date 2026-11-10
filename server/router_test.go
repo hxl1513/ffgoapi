@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/config"
+	"github.com/hxl1513/ffgoapi/config"
 )
 
 func TestRegisterRoutes(t *testing.T) {

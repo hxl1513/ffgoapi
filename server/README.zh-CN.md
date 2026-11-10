@@ -19,7 +19,7 @@
 
 ```bash
 go mod init your-org/your-app
-go get github.com/your-org/go-web-api-framework
+go get github.com/hxl1513/ffgoapi
 ```
 
 **要求：** Go 1.22 或更高版本
@@ -73,8 +73,8 @@ package main
 import (
 	"log"
 
-	"github.com/your-org/go-web-api-framework/config"
-	"github.com/your-org/go-web-api-framework/server"
+	"github.com/hxl1513/ffgoapi/config"
+	"github.com/hxl1513/ffgoapi/server"
 )
 
 func main() {

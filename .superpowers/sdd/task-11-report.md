@@ -20,7 +20,7 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /health                   --> github.com/your-org/go-web-api-framework.(*Server).setupDefaultRoutes.func1 (5 handlers)
+[GIN-debug] GET    /health                   --> github.com/hxl1513/ffgoapi.(*Server).setupDefaultRoutes.func1 (5 handlers)
 [INFO]2026-11-06T13:14:55+08:00 | [GIN] %s | %d | %v | %s | %s %s    GET /health
 --- PASS: TestNewServer (0.01s)
 PASS
@@ -30,11 +30,11 @@ PASS
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
-[GIN-debug] GET    /health                   --> github.com/your-org/go-web-api-framework.(*Server).setupDefaultRoutes.func1 (5 handlers)
+[GIN-debug] GET    /health                   --> github.com/hxl1513/ffgoapi.(*Server).setupDefaultRoutes.func1 (5 handlers)
 [INFO]2026-11-06T13:15:13+08:00 | [GIN] %s | %d | %v | %s | %s %s    GET /health
 --- PASS: TestServerStart (0.20s)
 PASS
-ok  	github.com/your-org/go-web-api-framework	0.656s
+ok  	github.com/hxl1513/ffgoapi	0.656s
 ```
 
 Both tests pass.

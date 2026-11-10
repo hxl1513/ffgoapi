@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 // RateLimitConfig holds rate limiting configuration.

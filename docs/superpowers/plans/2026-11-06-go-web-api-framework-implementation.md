@@ -88,17 +88,17 @@ server/                                 # 框架根目录 (目标路径: C:\work
 - [ ] **Step 1: Initialize Go module**
 
 ```bash
-cd server && go mod init github.com/your-org/go-web-api-framework
+cd server && go mod init github.com/hxl1513/ffgoapi
 ```
 
-Expected: `go: creating new go.mod: module github.com/your-org/go-web-api-framework`
+Expected: `go: creating new go.mod: module github.com/hxl1513/ffgoapi`
 
 - [ ] **Step 2: Add dependencies**
 
 Create `server/go.mod`:
 
 ```go
-module github.com/your-org/go-web-api-framework
+module github.com/hxl1513/ffgoapi
 
 go 1.25
 
@@ -1895,7 +1895,7 @@ import (
     "time"
 
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/common"
+    "github.com/hxl1513/ffgoapi/common"
 )
 
 // Logger returns a logging middleware
@@ -1997,7 +1997,7 @@ import (
     "net/http"
     "testing"
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 func TestAuthMiddleware_NoToken(t *testing.T) {
@@ -2092,8 +2092,8 @@ import (
     "strings"
 
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/pkg/crypto"
-    "github.com/your-org/go-web-api-framework/types"
+    "github.com/hxl1513/ffgoapi/pkg/crypto"
+    "github.com/hxl1513/ffgoapi/types"
 )
 
 // AuthConfig represents auth configuration
@@ -2199,7 +2199,7 @@ import (
     "time"
 
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 // RateLimitConfig represents rate limit configuration
@@ -2310,7 +2310,7 @@ import (
 
     "github.com/gin-gonic/gin"
     "github.com/stretchr/testify/assert"
-    "github.com/your-org/go-web-api-framework/types"
+    "github.com/hxl1513/ffgoapi/types"
 )
 
 func TestBaseController_Success(t *testing.T) {
@@ -2378,7 +2378,7 @@ import (
     "net/http"
 
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/types"
+    "github.com/hxl1513/ffgoapi/types"
 )
 
 // BaseController provides common controller functionality
@@ -2518,7 +2518,7 @@ package service
 import (
     "context"
     "testing"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 func TestBaseService_DB(t *testing.T) {
@@ -2598,7 +2598,7 @@ import (
     "fmt"
 
     "gorm.io/gorm"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 // BaseService provides common service functionality
@@ -2701,7 +2701,7 @@ import (
     "time"
 
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/config"
+    "github.com/hxl1513/ffgoapi/config"
     "github.com/stretchr/testify/assert"
 )
 
@@ -2812,11 +2812,11 @@ import (
     "time"
 
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/common"
-    "github.com/your-org/go-web-api-framework/config"
-    "github.com/your-org/go-web-api-framework/controller"
-    "github.com/your-org/go-web-api-framework/middleware"
-    "github.com/your-org/go-web-api-framework/model"
+    "github.com/hxl1513/ffgoapi/common"
+    "github.com/hxl1513/ffgoapi/config"
+    "github.com/hxl1513/ffgoapi/controller"
+    "github.com/hxl1513/ffgoapi/middleware"
+    "github.com/hxl1513/ffgoapi/model"
 )
 
 // Server represents the HTTP server
@@ -3021,7 +3021,7 @@ Create `server/examples/users/user_model.go`:
 ```go
 package users
 
-import "github.com/your-org/go-web-api-framework/model"
+import "github.com/hxl1513/ffgoapi/model"
 
 type User struct {
     model.BaseModel
@@ -3039,8 +3039,8 @@ package users
 
 import (
     "context"
-    "github.com/your-org/go-web-api-framework/service"
-    "github.com/your-org/go-web-api-framework/dto"
+    "github.com/hxl1513/ffgoapi/service"
+    "github.com/hxl1513/ffgoapi/dto"
     "gorm.io/gorm"
 )
 
@@ -3100,7 +3100,7 @@ package users
 
 import (
     "github.com/gin-gonic/gin"
-    "github.com/your-org/go-web-api-framework/controller"
+    "github.com/hxl1513/ffgoapi/controller"
 )
 
 type UserController struct {
@@ -3147,9 +3147,9 @@ package main
 
 import (
     "log"
-    "github.com/your-org/go-web-api-framework/config"
-    "github.com/your-org/go-web-api-framework/server"
-    _ "github.com/your-org/go-web-api-framework/examples/users"
+    "github.com/hxl1513/ffgoapi/config"
+    "github.com/hxl1513/ffgoapi/server"
+    _ "github.com/hxl1513/ffgoapi/examples/users"
 )
 
 func main() {
@@ -3330,7 +3330,7 @@ Add to `server/controller/base_controller.go`:
 
 ```go
 // Add import
-import "github.com/your-org/go-web-api-framework/pkg/validator"
+import "github.com/hxl1513/ffgoapi/pkg/validator"
 
 // Add method
 // ValidateAndBind binds and validates a request
@@ -3599,8 +3599,8 @@ package main
 
 import (
     "log"
-    "github.com/your-org/go-web-api-framework/config"
-    "github.com/your-org/go-web-api-framework/server"
+    "github.com/hxl1513/ffgoapi/config"
+    "github.com/hxl1513/ffgoapi/server"
 )
 
 func main() {

@@ -90,7 +90,7 @@ Use `github.com/stretchr/testify/assert`.
 ## Global Constraints
 
 - Go 1.25+
-- Import types: `github.com/your-org/go-web-api-framework/types`
+- Import types: `github.com/hxl1513/ffgoapi/types`
 
 ## Test Verification
 

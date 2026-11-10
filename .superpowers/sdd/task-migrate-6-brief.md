@@ -142,7 +142,7 @@ package server
 ```go
 import (
     // ... 现有导入 ...
-    "github.com/your-org/go-web-api-framework/migration"
+    "github.com/hxl1513/ffgoapi/migration"
 )
 ```
 

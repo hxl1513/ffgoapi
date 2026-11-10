@@ -35,7 +35,7 @@ func (v *Validator) ValidateField(field interface{}, tag string) error
 Add to `server/controller/base_controller.go`:
 
 ```go
-import "github.com/your-org/go-web-api-framework/pkg/validator"
+import "github.com/hxl1513/ffgoapi/pkg/validator"
 
 func (bc *BaseController) ValidateAndBind(c *gin.Context, obj interface{}) error {
     if err := c.ShouldBind(obj); err != nil {

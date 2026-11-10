@@ -33,7 +33,7 @@ All 7 cache tests PASS:
 === RUN   TestMemoryCacheDelMissing
 --- PASS: TestMemoryCacheDelMissing (0.00s)
 PASS
-ok  	github.com/your-org/go-web-api-framework/model	4.012s
+ok  	github.com/hxl1513/ffgoapi/model	4.012s
 ```
 
 ## Implementation Details

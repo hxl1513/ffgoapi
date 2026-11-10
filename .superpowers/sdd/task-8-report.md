@@ -66,7 +66,7 @@ PASS — 11/11 tests pass
 
 ## Key Finding
 
-The repository was pre-seeded with correct implementation files at HEAD. The `hasRestriction` fix in `auth.go` (to correctly handle `allowedRoles=0` as "any role") was introduced in commit `cb7a759`. All test files were authored with correct import paths (`github.com/your-org/go-web-api-framework/model` rather than `.../server/model`) and token expiry (`time.Hour` rather than `0`). The existing test helper `testingResponseWriter` in `request-id_test.go` was fixed in commit `0bd0c8e` to store headers persistently.
+The repository was pre-seeded with correct implementation files at HEAD. The `hasRestriction` fix in `auth.go` (to correctly handle `allowedRoles=0` as "any role") was introduced in commit `cb7a759`. All test files were authored with correct import paths (`github.com/hxl1513/ffgoapi/model` rather than `.../server/model`) and token expiry (`time.Hour` rather than `0`). The existing test helper `testingResponseWriter` in `request-id_test.go` was fixed in commit `0bd0c8e` to store headers persistently.
 
 ## Verification Command
 

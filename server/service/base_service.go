@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 // BaseService provides common database and cache operations.

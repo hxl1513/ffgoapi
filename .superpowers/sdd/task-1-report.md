@@ -18,7 +18,7 @@ f6b31fe docs: add initial framework design specification
 3. **Warnings** — All 11 dependencies were added as specified in the brief. Module name and Go version are verbatim from the requirements.
 
 ## Self-Review Checklist
-- [x] `server/go.mod` created with correct module name: `github.com/your-org/go-web-api-framework`
+- [x] `server/go.mod` created with correct module name: `github.com/hxl1513/ffgoapi`
 - [x] Go version set to `go 1.25`
 - [x] All 11 required dependencies added verbatim
 - [x] Committed with exact message: "chore: initialize Go module with dependencies"

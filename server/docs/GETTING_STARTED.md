@@ -8,7 +8,7 @@ Add the framework as a module dependency in your Go project:
 
 ```bash
 go mod init your-org/your-app
-go get github.com/your-org/go-web-api-framework
+go get github.com/hxl1513/ffgoapi
 ```
 
 The framework requires **Go 1.22** or later.
@@ -80,8 +80,8 @@ package main
 import (
 	"log"
 
-	"github.com/your-org/go-web-api-framework/config"
-	"github.com/your-org/go-web-api-framework/server"
+	"github.com/hxl1513/ffgoapi/config"
+	"github.com/hxl1513/ffgoapi/server"
 )
 
 func main() {
@@ -120,9 +120,9 @@ For production routes, extend `BaseController` to get JSON helpers without repea
 package controller
 
 import (
-	"github.com/your-org/go-web-api-framework/controller"
-	"github.com/your-org/go-web-api-framework/dto"
-	"github.com/your-org/go-web-api-framework/types"
+	"github.com/hxl1513/ffgoapi/controller"
+	"github.com/hxl1513/ffgoapi/dto"
+	"github.com/hxl1513/ffgoapi/types"
 )
 
 type GreetingController struct{}
@@ -182,7 +182,7 @@ package service
 import (
 	"context"
 
-	"github.com/your-org/go-web-api-framework/model"
+	"github.com/hxl1513/ffgoapi/model"
 )
 
 type UserService struct {

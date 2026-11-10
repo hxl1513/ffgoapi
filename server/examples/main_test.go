@@ -9,10 +9,10 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/your-org/go-web-api-framework/dto"
-	"github.com/your-org/go-web-api-framework/examples/users"
-	"github.com/your-org/go-web-api-framework/model"
-	"github.com/your-org/go-web-api-framework/types"
+	"github.com/hxl1513/ffgoapi/dto"
+	"github.com/hxl1513/ffgoapi/examples/users"
+	"github.com/hxl1513/ffgoapi/model"
+	"github.com/hxl1513/ffgoapi/types"
 )
 
 // setupTestDB creates an in-memory SQLite database with the users table
